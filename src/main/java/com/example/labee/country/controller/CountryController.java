@@ -5,6 +5,10 @@ import com.example.labee.country.CountryMapper;
 import com.example.labee.country.Repository.CountryRepository;
 import com.example.labee.country.dto.CountryDTO;
 import com.example.labee.country.entity.Country;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -42,9 +46,18 @@ public class CountryController {
     }
 
     @GET
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Country getOneCountry() {
-        return null;
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Returns country",
+                    content = @Content(schema = @Schema(implementation = CountryDTO.class))),
+            @ApiResponse(responseCode = "404", description = "Id not found")})
+    public Response getOne(@PathParam("id") Long id) {
+        var country = repository.findById(id);
+        if (country.isPresent())
+            return Response.ok().entity(mapper.map(country.get())).build();
+
+        throw new NotFoundException();
     }
 
 //DELETE
@@ -79,5 +92,18 @@ public class CountryController {
         return Response.noContent().build();
 
     }
-}
+
+    @GET
+    @Path("/countries")
+    public Response findAllByName(@QueryParam("name") String name) {
+        List<Country> countries = repository.findAllByName(name);
+        if (countries.isEmpty()) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        } else {
+            return Response.ok(countries).build();
+        }
+    }
+
+    }
+
 

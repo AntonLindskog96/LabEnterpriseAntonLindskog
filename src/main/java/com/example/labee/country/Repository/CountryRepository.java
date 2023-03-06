@@ -1,5 +1,6 @@
 package com.example.labee.country.Repository;
 
+import com.example.labee.country.dto.CountryDTO;
 import com.example.labee.country.entity.Country;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
@@ -60,6 +61,11 @@ public class CountryRepository {
         var query = em.createQuery("select c from Country c where c.name like :name");
         query.setParameter("name", name);
         return (List<Country>) query.getResultList();
+    }
+
+
+    public Optional<Country> findById(long id) {
+        return Optional.ofNullable(em.find(Country.class, id));
     }
 }
 

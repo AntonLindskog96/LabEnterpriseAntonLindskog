@@ -26,7 +26,7 @@ class CountryRepositoryTest {
     @InjectMocks
     private CountryRepository repository;
     @Mock
-    private EntityManager entitymanager;
+    private EntityManager entityManager;
     @Mock
     private Query query;
 
@@ -38,7 +38,7 @@ class CountryRepositoryTest {
     @Test
     void testFindOneReturnsCorrectCountry() {
 
-        when(entitymanager.find(Country.class, 1L)).thenReturn(country);
+        when(entityManager.find(Country.class, 1L)).thenReturn(country);
         Optional<Country> result = repository.findOne(1L);
         assertTrue(result.isPresent());
         assertEquals(country, result.get());
@@ -49,11 +49,13 @@ class CountryRepositoryTest {
     @Test
     void findAllReturnCountryList() {
         when(query.getResultList()).thenReturn(countryList);
-        when(entitymanager.createQuery("select c from Country c")).thenReturn(query);
+        when(entityManager.createQuery("select c from Country c")).thenReturn(query);
 
         var result = repository.findAll();
         assertEquals(countryList, result);
     }
+
+
 
 
 
