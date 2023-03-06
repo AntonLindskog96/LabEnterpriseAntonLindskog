@@ -4,10 +4,11 @@ import com.example.labee.country.controller.CountryController;
 import com.example.labee.country.entity.Country;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
+import jakarta.ws.rs.core.Response;
 import org.junit.jupiter.api.BeforeEach;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.Test;
@@ -43,8 +44,18 @@ class CountryRepositoryTest {
         assertEquals(country, result.get());
     }
 
-    private CountryRepository countryRepository;
-    private CountryController countryController;
+
+
+    @Test
+    void findAllReturnCountryList() {
+        when(query.getResultList()).thenReturn(countryList);
+        when(entitymanager.createQuery("select c from Country c")).thenReturn(query);
+
+        var result = repository.findAll();
+        assertEquals(countryList, result);
+    }
+
+
 
 
 }

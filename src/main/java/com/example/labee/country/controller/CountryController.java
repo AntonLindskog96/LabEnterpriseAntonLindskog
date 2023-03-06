@@ -24,8 +24,6 @@ public class CountryController {
     @Inject
     CountryMapper mapper;
 
-    public CountryController(CountryRepository countryRepository) {
-    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

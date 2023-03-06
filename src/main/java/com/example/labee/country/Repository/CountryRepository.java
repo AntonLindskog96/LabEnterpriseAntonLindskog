@@ -17,6 +17,7 @@ public class CountryRepository {
     @PersistenceContext
     EntityManager em;
 
+
     public List<Country> findAll(){
         var query = em.createQuery("select c from Country c");
         return (List<Country>) query.getResultList();
