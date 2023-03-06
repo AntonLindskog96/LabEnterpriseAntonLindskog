@@ -30,8 +30,8 @@ class CountryRepositoryTest {
     @Mock
     private Query query;
 
-    Country country;
-    Country country2;
+    Country country = new Country();
+    Country country2 = new Country();
 
     List<Country> countryList = List.of(country, country2);
 
@@ -54,7 +54,6 @@ class CountryRepositoryTest {
         var result = repository.findAll();
         assertEquals(countryList, result);
     }
-
 
 
 
