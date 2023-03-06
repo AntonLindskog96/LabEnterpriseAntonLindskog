@@ -30,8 +30,8 @@ class CountryRepositoryTest {
     @Mock
     private Query query;
 
-    Country country = new Country("test");
-    Country country2 = new Country("test2");
+    Country country;
+    Country country2;
 
     List<Country> countryList = List.of(country, country2);
 

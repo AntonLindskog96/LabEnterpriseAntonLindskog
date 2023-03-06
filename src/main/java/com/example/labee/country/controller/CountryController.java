@@ -48,10 +48,6 @@ public class CountryController {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Returns country",
-                    content = @Content(schema = @Schema(implementation = CountryDTO.class))),
-            @ApiResponse(responseCode = "404", description = "Id not found")})
     public Response getOne(@PathParam("id") Long id) {
         var country = repository.findById(id);
         if (country.isPresent())
