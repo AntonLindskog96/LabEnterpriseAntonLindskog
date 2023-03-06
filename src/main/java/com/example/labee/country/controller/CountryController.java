@@ -1,6 +1,7 @@
 
 package com.example.labee.country.controller;
 
+import com.example.labee.country.CountryMapper;
 import com.example.labee.country.Repository.CountryRepository;
 import com.example.labee.country.dto.CountryDTO;
 import com.example.labee.country.entity.Country;
@@ -19,6 +20,9 @@ public class CountryController {
 
     @Inject
     CountryRepository repository;
+
+    @Inject
+    CountryMapper mapper;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
