@@ -58,7 +58,6 @@ public class CountryController {
         return Response.noContent().build();
     }
 
-    //skriv in till egen klass
     private List<CountryDTO> map(List<Country> all) {
         return all.stream().map(country -> new CountryDTO(country.getId(), country.getName())).toList();
     }
@@ -68,7 +67,7 @@ public class CountryController {
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(@PathParam("id") long id, CountryDTO countryDTO) {
+    public Response update(@PathParam("id") long id,@QueryParam("name") String name) {
         Country country = repository.getId(id);
         if (country == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
